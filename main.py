@@ -60,22 +60,24 @@ def criar_ou_atualizar_time():
             if team_data['owner'] == user:
                 existing_team_id = team_id
                 break
-        
-        # Se o time existir, informar que o time já existe
-        if existing_team_id:
-            return jsonify({'error': 'Este usuário já possui um time registrado.'}), 400
 
-        # Criar um novo time
-        new_team_id = str(uuid.uuid4())
-        new_pokemons = []
-        for pokemon_name in team:
-            pokemon_data = get_pokemon_data(pokemon_name)
-            if pokemon_data:
-                new_pokemons.append(pokemon_data)
-            else:
-                return jsonify({'error': f'Pokémon "{pokemon_name}" não encontrado.'}), 404
-        teams[new_team_id] = {'owner': user, 'pokemons': new_pokemons}
-        return jsonify({'message': 'Time de Pokémon criado e salvo com sucesso!', 'id': new_team_id}), 201
+        # Se o time existir, adicionar os novos Pokémon e verificar duplicatas
+        if existing_team_id:
+            existing_team = teams[existing_team_id]['pokemons']
+            for pokemon_name in team:
+                if any(pokemon['name'] == pokemon_name for pokemon in existing_team):
+                    return jsonify({'error': f'O Pokémon "{pokemon_name}" já está na lista de times.'}), 400
+                else:
+                    pokemon_data = get_pokemon_data(pokemon_name)
+                    existing_team.append(pokemon_data)
+            return jsonify({'message': 'Novos Pokémon adicionados ao time existente!', 'id': existing_team_id}), 200
+
+        # Se o time não existir, criar um novo time
+        else:
+            new_team_id = str(uuid.uuid4())
+            new_pokemons = [get_pokemon_data(pokemon_name) for pokemon_name in team]
+            teams[new_team_id] = {'owner': user, 'pokemons': new_pokemons}
+            return jsonify({'message': 'Time de Pokémon criado e salvo com sucesso!', 'id': new_team_id}), 201
 
     else:
         return jsonify({'error': 'Usuário e lista de Pokémon são campos obrigatórios.'}), 400
