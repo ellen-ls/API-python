@@ -3,34 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Time Pokémon</title>
+    <title>Criar Time Pokémon</title>
 </head>
 <body>
-    <h1>Registrar Time Pokémon</h1>
-    <form action="/" method="post">
-        <label for="username">Nome de Usuário:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="pokemon_names">Nomes dos Pokémon (separados por vírgula):</label>
-        <input type="text" id="pokemon_names" name="pokemon_names" required>
-        <br>
-        <button type="submit" name="add_pokemon">Registrar Time</button>
+    <h1>Criar Time Pokémon</h1>
+    <form id="teamForm" action="/api/teams" method="POST">
+        <label for="user">Usuário:</label>
+        <input type="text" id="user" name="user" required><br><br>
+   
+        <label for="pokemon3">Pokémon 3:</label>
+        <select id="pokemon3" name="team[]" required>
+            {% for pokemon in pokemon_list %}
+            <option value="{{ pokemon }}">{{ pokemon }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Criar Time</button>
     </form>
 
-    <h2>Times Pokémon Registrados</h2>
-    <ul>
-        {% for team_id, team_data in team.items() %}
-        <li>
-            <strong>Time ID:</strong> {{ team_id }}<br>
-            <strong>Usuário:</strong> {{ team_data['username'] }}<br>
-            <strong>Pokémons:</strong><br>
-            <ul>
-                {% for pokemon in team_data['team'] %}
-                <li>{{ pokemon.name }}</li>
-                {% endfor %}
-            </ul>
-        </li>
-        {% endfor %}
-    </ul>
+    <div id="message"></div>
 </body>
 </html>
+
