@@ -3,25 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Time Pokémon</title>
+    <title>Times de Pokémon Cadastrados</title>
 </head>
 <body>
-    <h1>Criar Time Pokémon</h1>
-    <form id="teamForm" action="/api/teams" method="POST">
+    <h1>Criar e Visualizar Times de Pokémon</h1>
+
+    <!-- Formulário para criar um novo time -->
+    <h2>Criar Novo Time</h2>
+    <form id="createTeamForm" action="/api/teams" method="POST">
         <label for="user">Usuário:</label>
         <input type="text" id="user" name="user" required><br><br>
-   
-        <label for="pokemon3">Pokémon 3:</label>
-        <select id="pokemon3" name="team[]" required>
+        
+        <label for="pokemon1">Pokémon 1:</label>
+        <select id="pokemon1" name="team[]" required>
             {% for pokemon in pokemon_list %}
             <option value="{{ pokemon }}">{{ pokemon }}</option>
             {% endfor %}
         </select><br><br>
 
+
         <button type="submit">Criar Time</button>
     </form>
-
-    <div id="message"></div>
+    <h1>Times de Pokémon Cadastrados</h1>
+    <ul>
+        {% for team_id, team_data in teams.items() %}
+            <li>
+                <h2>Time ID: {{ team_id }}</h2>
+                <p>Dono: {{ team_data.owner }}</p>
+                <p>Pokémons:</p>
+                <ul>
+                    {% for pokemon in team_data.pokemons %}
+                        <li>
+                            <p>Nome: {{ pokemon.name }}</p>
+                            <p>Peso: {{ pokemon.weight }}</p>
+                            <p>Altura: {{ pokemon.height }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
-
