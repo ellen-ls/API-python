@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Times de Pokémon Cadastrados</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Criar e Visualizar Times de Pokémon</h1>
@@ -14,8 +15,8 @@
         <label for="user">Usuário:</label>
         <input type="text" id="user" name="user" required><br><br>
         
-        <label for="pokemon1">Pokémon 1:</label>
-        <select id="pokemon1" name="team[]" required>
+        <label for="pokemon">Pokémon :</label>
+        <select id="pokemon" name="team[]" required>
             {% for pokemon in pokemon_list %}
             <option value="{{ pokemon }}">{{ pokemon }}</option>
             {% endfor %}
