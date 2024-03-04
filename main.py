@@ -50,7 +50,7 @@ def create_or_update_team():
 
         # Verificar se todos os nomes dos Pokémon na equipe são válidos
         if not all(is_valid_pokemon_name(pokemon_name) for pokemon_name in team):
-            return jsonify({'error': 'Um ou mais nomes de Pokémon são inválidos.'}), 400
+            return jsonify({'error': 'Um ou mais nomes de Pokemon sao invalidos.'}), 400
 
         # Verificar se o usuário já possui um time registrado
         existing_team_id = None
@@ -64,21 +64,21 @@ def create_or_update_team():
             existing_team = teams[existing_team_id]['pokemons']
             for pokemon_name in team:
                 if any(pokemon['name'] == pokemon_name for pokemon in existing_team):
-                    return jsonify({'error': f'O Pokémon "{pokemon_name}" já está na lista de times.'}), 400
+                    return jsonify({'error': f'O Pokemon "{pokemon_name}" ja esta na lista de times.'}), 400
                 else:
                     pokemon_data = get_pokemon_data(pokemon_name)
                     existing_team.append(pokemon_data)
-            return jsonify({'message': 'Novos Pokémon adicionados ao time existente!'}), 200
+            return jsonify({'message': 'Novos Pokemon adicionados ao time existente!'}), 200
 
         # Se o time não existir, criar um novo time
         else:
             new_team_id = str(uuid.uuid4())
             new_pokemons = [get_pokemon_data(pokemon_name) for pokemon_name in team]
             teams[new_team_id] = {'owner': user, 'pokemons': new_pokemons}
-            return jsonify({'message': 'Novo time de Pokémon criado e salvo com sucesso!', 'id': new_team_id}), 201
+            return jsonify({'message': 'Novo time de Pokemon criado e salvo com sucesso!', 'id': new_team_id}), 201
 
     else:
-        return jsonify({'error': 'Usuário e lista de Pokémon são campos obrigatórios.'}), 400
+        return jsonify({'error': 'Usuario e lista de Pokemon são campos obrigatorios.'}), 400
 
 # Rota para listar todos os times registrados
 @app.route('/api/teams', methods=['GET'])
@@ -92,7 +92,7 @@ def get_team_by_user(user):
     if user_teams:
         return jsonify(user_teams)
     else:
-        return jsonify({'error': 'Usuário não possui times registrados.'}), 404
+        return jsonify({'error': 'Usuario não possui times registrados.'}), 404
 
 # Rota para renderizar o template HTML
 @app.route('/')
