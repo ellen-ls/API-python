@@ -24,7 +24,9 @@ This is a web application built with Flask that allows users to create and manag
 
 ## Installation:
 
-- ```` pip install -r requirements.txt ````
+ ``` 
+ pip install -r requirements.txt
+```
 
 ## Usage:
 
@@ -44,12 +46,16 @@ This is a web application built with Flask that allows users to create and manag
 Alternatively, you can run the application using Docker.
 
 1. Build the Docker image:
-   `docker build -t pokemon-teams-app.`
+   ``` 
+   docker build -t pokemon-teams-app.
+   ```
 
-2. Run the Docker container:
-   `docker run -d -p 5000:5000 pokemon-teams-app`
+3. Run the Docker container:
+   ```
+   docker run -d -p 5000:5000 pokemon-teams-app
+   ```
 
-3. Access the application at http://localhost:5000 as described above.
+5. Access the application at http://localhost:5000 as described above.
 
 ## Contributing
 
