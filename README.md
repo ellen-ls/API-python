@@ -47,7 +47,7 @@ Alternatively, you can run the application using Docker.
 
 1. Build the Docker image:
    ``` 
-   docker build -t pokemon-api.
+   docker build -t pokemon-api .
    ```
 
 3. Run the Docker container:
