@@ -47,12 +47,12 @@ Alternatively, you can run the application using Docker.
 
 1. Build the Docker image:
    ``` 
-   docker build -t pokemon-teams-app.
+   docker build -t pokemon-api.
    ```
 
 3. Run the Docker container:
    ```
-   docker run -d -p 5000:5000 pokemon-teams-app
+   docker run --rm -p 5000:5000 pokemon-api
    ```
 
 5. Access the application at http://localhost:5000 as described above.
